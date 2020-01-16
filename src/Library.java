@@ -4,11 +4,11 @@
 
 public class Library {
     public static void main(String[] args) {
-        final String appName = "Library v0.3";
+        final String appName = "Library v0.4";
 
 //      Nadanie cech obiektom Książka (przypisanie informacji)
         Book book1 = new Book("W pustyni i w puszczy", "Henryk Sienkiewicz", 2010,
-                296, "Greg","9742356874236");
+                296, "Greg");
 
         Book book2 = new Book("Java. Podstawy. Wydanie XI", "Cay S. Horstmann", 2019,
                 768, "Helion", "9788328357785");

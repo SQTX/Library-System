@@ -1,10 +1,16 @@
 /*
+ * Copyright (c) 2020. SQTX
+ *
  * Copyright © 2020 SQTX. All rights reserved.
  */
 
+package pl.library.app;
+
+    import pl.library.model.Book;
+
 public class Library {
     public static void main(String[] args) {
-        final String appName = "Library v0.4";
+        final String appName = "pl.library.app.Library v0.5";
 
 //      Nadanie cech obiektom Książka (przypisanie informacji)
         Book book1 = new Book("W pustyni i w puszczy", "Henryk Sienkiewicz", 2010,

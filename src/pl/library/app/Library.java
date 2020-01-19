@@ -10,9 +10,9 @@ package pl.library.app;
 
 public class Library {
     public static void main(String[] args) {
-        final String appName = "pl.library.app.Library v0.5";
+        final String appName = "pl.library.app.Library v0.6";
 
-//      Nadanie cech obiektom Książka (przypisanie informacji)
+//        Nadanie cech obiektom Książka (przypisanie informacji)
         Book book1 = new Book("W pustyni i w puszczy", "Henryk Sienkiewicz", 2010,
                 296, "Greg");
 
@@ -25,7 +25,7 @@ public class Library {
 
         System.out.println(appName);
         System.out.println("W bibliotece są ksiązki: ");
-//      Metody odpowiedzialne za wypisanie informacji o książkach
+//        Metody odpowiedzialne za wypisanie informacji o książkach
         book1.printInfo();
         book2.printInfo();
         book3.printInfo();

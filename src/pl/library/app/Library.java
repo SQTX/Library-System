@@ -6,28 +6,30 @@
 
 package pl.library.app;
 
-    import pl.library.model.Book;
+import pl.library.model.Book;
 
 public class Library {
     public static void main(String[] args) {
-        final String appName = "pl.library.app.Library v0.6";
+        final String appName = "Library v0.7";
 
-//        Nadanie cech obiektom Książka (przypisanie informacji)
-        Book book1 = new Book("W pustyni i w puszczy", "Henryk Sienkiewicz", 2010,
+//        Tworzymy obiekt zkładający się z tablicy (pojemność tablicy to 1000 obiektów books)
+        Book [] books = new Book[1000];
+//        Przypisujemy książki do poszczególnych tablic
+        books[0] = new Book("W pustyni i w puszczy", "Henryk Sienkiewicz", 2010,
                 296, "Greg");
-
-        Book book2 = new Book("Java. Podstawy. Wydanie XI", "Cay S. Horstmann", 2019,
+        books[1] = new Book("Java. Podstawy. Wydanie XI", "Cay S. Horstmann", 2019,
                 768, "Helion", "9788328357785");
-
-        Book book3 = new Book("Sztuka podstępu. Łamałem ludzi, nie hasła. Wydanie II",
+        books[2] = new Book("Sztuka podstępu. Łamałem ludzi, nie hasła. Wydanie II",
                 "Kevin Mitnick, William L. Simon, Steve Wozniak", 2010, 384,
                 "Helion", "9788328331372");
 
-        System.out.println(appName);
+        System.out.println(appName+"\n");
         System.out.println("W bibliotece są ksiązki: ");
 //        Metody odpowiedzialne za wypisanie informacji o książkach
-        book1.printInfo();
-        book2.printInfo();
-        book3.printInfo();
+        books[0].printInfo();
+        books[1].printInfo();
+        books[2].printInfo();
+//        Pojemność naszego systemu - informacja
+        System.out.println("System może pomieścić do " + books.length + " książek.");
     }
 }

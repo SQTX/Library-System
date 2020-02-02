@@ -12,8 +12,8 @@ import java.util.Scanner;
 public class DataReader {
     private Scanner sc = new Scanner(System.in);
 
+//    Tworzenie książki
     public Book readAndCreateBook(){
-        //        Tworzenie książki
         System.out.print("Tytuł: ");
         String title = sc.nextLine();
         System.out.print("Autor: ");
@@ -31,6 +31,15 @@ public class DataReader {
 
         return new Book(title,author,releaseDate,pages,publisher,isbn);
     }
+
+//    Pobieranie wybraniej opcji
+    public int getInt(){
+        int choice = sc.nextInt();
+        sc.nextLine();
+        return choice;
+    }
+
+//    Zamykanie systemu pobierania danych
     public void scClose(){
         sc.close();
     }

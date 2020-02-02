@@ -83,6 +83,7 @@ public class Book {
 //    Metoda odpowiedzialna za wypisanie zapisanych informacji o danej książce
     public void printInfo(){
         String info ="\""+title+"\""+"\n"+author+"\n"+releaseDate+"\n"+publisher+"\n";
+
 //        Warunek sprawdzający czy podano jakiś numer isbn czy nie, jeżeli tak to jest wyświetlony
         if (isbn != null){
             System.out.println(info + isbn+"\n");

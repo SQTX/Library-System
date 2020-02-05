@@ -7,13 +7,13 @@
 package pl.library.model;
 
 public class Library{
-    private final int maxBooks = 1000;
-    private Book [] books = new Book[maxBooks];
+    private final static int MAX_BOOKS = 1000;
+    private Book [] books = new Book[MAX_BOOKS];
     private int booksNumber = 0;
 
 //    Metoda odpowiedzialna za sprawdzenie czy limit książek nie został przekroczony oraz dodanie nowej książki
     public void addBook(Book book){
-        if(booksNumber<maxBooks){
+        if(booksNumber< MAX_BOOKS){
             books[booksNumber] = book;
             booksNumber++;
         }else{

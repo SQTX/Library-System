@@ -16,9 +16,9 @@ public class LibraryControl {
     private Library library = new Library();
 
 //    Stałe przypisujące wartościom ich zadania wykonywane w switchu
-    private final int exit = 0;
-    private final int addBook = 1;
-    private final int printBooks = 2;
+    private final static int EXIT = 0;
+    private final static int ADD_BOOK = 1;
+    private final static int PRINT_BOOKS = 2;
 
 //    Metoda odpowiedzialna za wybór działania
     public void controlLoop() {
@@ -29,16 +29,16 @@ public class LibraryControl {
             System.out.println("");   //Enter po wybraniu, odstęp dla czytelnoścki kolejnych działań
 
             switch(choice){
-                case exit: exit();
+                case EXIT: exit();
                 break;
-                case addBook: addBook();
+                case ADD_BOOK: addBook();
                 break;
-                case printBooks: printBooks();
+                case PRINT_BOOKS: printBooks();
                 break;
                 default: System.out.println("Polecenie nierozpoznane");
                 break;
             }
-        }while(choice!=exit);
+        }while(choice!= EXIT);
     }
 
     private void printOptions() {

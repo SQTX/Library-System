@@ -7,11 +7,10 @@
 package pl.library.app;
 
 public class LibraryApp {
-    final static String APP_NAME = "Biblioteka v1.0";
+    final static String APP_NAME = "Biblioteka v1.1";
 
     public static void main(String[] args) {
-        final String appName = APP_NAME;
-        System.out.println(appName);
+        System.out.println(APP_NAME);
         LibraryControl libraryControl = new LibraryControl();
         libraryControl.controlLoop();
     }

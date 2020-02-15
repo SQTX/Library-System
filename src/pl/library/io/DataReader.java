@@ -6,8 +6,9 @@
 
 package pl.library.io;
 
-import pl.library.model.Book;
 import java.util.Scanner;
+import pl.library.model.Book;
+import pl.library.model.Magazine;
 
 public class DataReader {
     private Scanner sc = new Scanner(System.in);
@@ -21,22 +22,38 @@ public class DataReader {
         System.out.print("Wydawnictwo: ");
         String publisher = sc.nextLine();
         System.out.print("Rok wydania : ");
-        int releaseDate = sc.nextInt();
-        sc.nextLine();
+        int releaseDate = getInt();
         System.out.print("Liczba stron: ");
-        int pages = sc.nextInt();
-        sc.nextLine();
+        int pages = getInt();
         System.out.print("ISBN: ");
         String isbn = sc.nextLine();
 
         return new Book(title,author,releaseDate,pages,publisher,isbn);
     }
 
+//    Tworzenie magazynu
+    public Magazine readAndCreateMagazine(){
+        System.out.print("Tytuł: ");
+        String title = sc.nextLine();
+        System.out.print("Wydawnictwo: ");
+        String publisher = sc.nextLine();
+        System.out.print("Język: ");
+        String language = sc.nextLine();
+        System.out.print("Rok wydania : ");
+        int year = getInt();
+        System.out.print("Miesiąc: ");
+        int month = getInt();
+        System.out.print("Dzień: ");
+        int day = getInt();
+
+        return new Magazine(title, publisher, language, year, month, day);
+    }
+
 //    Pobieranie wybraniej opcji
     public int getInt(){
-        int choice = sc.nextInt();
+        int number = sc.nextInt();
         sc.nextLine();
-        return choice;
+        return number;
     }
 
 //    Zamykanie systemu pobierania danych

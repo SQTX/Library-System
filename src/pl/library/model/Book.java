@@ -17,7 +17,6 @@ public class Book extends Publication{
     public String getAuthor() {
         return author;
     }
-
     public void setAuthor(String author) {
         this.author = author;
     }
@@ -25,7 +24,6 @@ public class Book extends Publication{
     public int getPages() {
         return pages;
     }
-
     public void setPages(int pages) {
         this.pages = pages;
     }
@@ -33,7 +31,6 @@ public class Book extends Publication{
     public String getIsbn() {
         return isbn;
     }
-
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
@@ -41,11 +38,10 @@ public class Book extends Publication{
 //    Konstruktor odpowiedzialny za tworzenie obiektu Książka
     public Book(String title, String author, int year, int pages, String publisher) {
 //        Informacje podane w Liblary.java zostają tu przeniesione i zapisane w chechach obiektu książka
-        this.setTitle(title);
+        super(title, publisher, year);
         this.author = author;
-        this.setReleaseDate(year);
         this.pages = pages;
-        this.setPublisher(publisher);
+
     }
 //    Konstruktor z numerem ISBN
     public Book(String title, String author, int year, int pages, String publisher,
@@ -56,7 +52,7 @@ public class Book extends Publication{
 
 //    Metoda odpowiedzialna za wypisanie zapisanych informacji o danej książce
     public void printInfo(){
-        String info ="\""+getTitle()+"\""+"\n"+author+"\n"+getReleaseDate()+"\n"+getPublisher();
+        String info ="\""+getTitle()+"\""+"\n"+author+"\n"+ getYear()+"\n"+getPublisher();
 
 //        Warunek sprawdzający czy podano jakiś numer isbn czy nie, jeżeli tak to jest wyświetlony
         if (isbn != null){

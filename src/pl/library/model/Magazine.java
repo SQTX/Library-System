@@ -12,18 +12,16 @@ public class Magazine extends Publication {
     private String language;
 
     public Magazine(String title, String publisher, String language, int year, int month, int day) {
-        this.setTitle(title);
-        this.setPublisher(publisher);
-        this.setReleaseDate(year);
+        super(title, publisher, year);
         this.month = month;
         this.day = day;
         this.language = language;
     }
 
+//    gettery i settery
     public int getMonth() {
         return month;
     }
-
     public void setMonth(int month) {
         this.month = month;
     }
@@ -31,7 +29,6 @@ public class Magazine extends Publication {
     public int getDay() {
         return day;
     }
-
     public void setDay(int day) {
         this.day = day;
     }
@@ -39,14 +36,13 @@ public class Magazine extends Publication {
     public String getLanguage() {
         return language;
     }
-
     public void setLanguage(String language) {
         this.language = language;
     }
 
     //    Metoda odpowiedzialna za wypisanie zapisanych informacji o danym magazynie
     public void printInfo() {
-        String info = "\"" + getTitle() + "\"" + "\n" + getPublisher() + "\n" + getLanguage() + "\n" + getReleaseDate() +
+        String info = "\"" + getTitle() + "\"" + "\n" + getPublisher() + "\n" + getLanguage() + "\n" + getYear() +
                 "\n" + getMonth() + "\n" + getDay();
         System.out.println(info);
     }

@@ -64,7 +64,7 @@ public class LibraryControl {
     }
     private void addMagazine() {
         Magazine magazine = dataReader.readAndCreateMagazine(); //Tworzenie obiektu magazine poprzez wywołanie metody
-        library.addMagazine(magazine);  //Stworzony powyżej obiekt book zostaje przeniesiony do library.java i zapisany w tablic
+        library.addMagazine(magazine);  //Stworzony powyżej obiekt magazine zostaje przeniesiony do library.java i zapisany w tablic
     }
 
     private void printBooks() {

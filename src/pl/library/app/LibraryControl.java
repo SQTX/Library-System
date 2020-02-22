@@ -71,7 +71,7 @@ public class LibraryControl {
         library.printBooks();
     }
     private void printMagazines() {
-        library.printMagazin();
+        library.printMagazine();
     }
 
     private void exit() {

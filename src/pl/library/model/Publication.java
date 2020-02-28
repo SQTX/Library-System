@@ -6,6 +6,8 @@
 
 package pl.library.model;
 
+import java.util.Objects;
+
 //Cechy które będą dziedziczone przez wszystkie publikacje w bibliotece
 public class Publication {
     private String title;
@@ -38,5 +40,20 @@ public class Publication {
         this.title = title;
         this.publisher = publisher;
         this.year = releaseDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Publication that = (Publication) o;
+        return year == that.year &&
+                Objects.equals(title, that.title) &&
+                Objects.equals(publisher, that.publisher);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, publisher, year);
     }
 }

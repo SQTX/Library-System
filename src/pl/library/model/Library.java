@@ -55,7 +55,7 @@ public class Library{
         }
         }
         if (countMagazine == 0) {
-            System.out.println("Brak magazynów w bibliotece");
+            System.out.println("Brak magazynów w bibliotece.");
         }
     }
 }

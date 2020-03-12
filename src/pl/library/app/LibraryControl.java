@@ -6,14 +6,20 @@
 
 package pl.library.app;
 
+import pl.library.exception.NoSuchOptionException;
+import pl.library.io.ConsolePrinter;
 import pl.library.io.DataReader;
 import pl.library.model.Book;
 import pl.library.model.Library;
 import pl.library.model.Magazine;
+import pl.library.model.Publication;
+
+import java.util.InputMismatchException;
 
 public class LibraryControl {
 
-    private DataReader dataReader = new DataReader();
+    private ConsolePrinter printer = new ConsolePrinter();
+    private DataReader dataReader = new DataReader(printer);
     private Library library = new Library();
 
 //    Metoda odpowiedzialna za wybór działania
@@ -21,8 +27,8 @@ public class LibraryControl {
         Option choice;
         do{
             printOptions();
-            choice = Option.createFromInt(dataReader.getInt()); //Przekształaca podaną liczbę w obiekt
-            System.out.println("");   //Enter po wybraniu, odstęp dla czytelnoścki kolejnych działań
+            choice = getChoice();
+            printer.printNLine("");   //Enter po wybraniu, odstęp dla czytelnoścki kolejnych działań
 
             switch(choice){
                 case EXIT: exit();
@@ -35,38 +41,68 @@ public class LibraryControl {
                 break;
                 case PRINT_MAGAZINES: printMagazines();
                 break;
-//                default: System.out.println("Polecenie nierozpoznane.");
-//                break;
+                default:
+                    printer.printLine("Nie ma takiej opcji, wprowadź ponownie: "); //w razie W
             }
         }while(choice!= Option.EXIT);
     }
 
+    private Option getChoice() {
+        boolean optionOk = true;
+        Option choice = null;
+        do {
+            try {
+                choice = Option.createFromInt(dataReader.getInt()); //Przekształaca podaną liczbę w obiekt
+                optionOk = false;
+            } catch (NoSuchOptionException e) {
+                printer.printLine(e.getMessage());
+            } catch (InputMismatchException e) {
+                printer.printLine("Wprowadzona wartość nie jest liczbą, podaj ponownie: ");
+            }
+        }while (optionOk);
+        return choice;
+    }
+
     private void printOptions() {
-        System.out.println();   //Enter po wybraniu, odstęp dla czytelnoścki kolejnych działań
+        printer.printNLine("");   //Enter po wybraniu, odstęp dla czytelnoścki kolejnych działań
         for (Option value : Option.values()) {
-            System.out.println(value);  //Polecenie w nawisie domyślnie wygląda tak: "value.toString()", dlatego wyświetla się descryption
+            printer.printNLine(value.toString());  //Polecenie w nawisie domyślnie wygląda tak: "value.toString()", dlatego wyświetla się descryption
         }
-        System.out.print("Wybieram opcję: ");
+        printer.printLine("Wybieram opcję: ");
     }
 
     private void addBook() {
-        Book book = dataReader.readAndCreateBook(); //Tworzenie obiektu book poprzez wywołanie metody
-        library.addBook(book);  //Stworzony powyżej obiekt book zostaje przeniesiony do library.java i zapisany w tablic
+        try {
+            Book book = dataReader.readAndCreateBook(); //Tworzenie obiektu book poprzez wywołanie metody
+            library.addBook(book);  //Stworzony powyżej obiekt book zostaje przeniesiony do library.java i zapisany w tablic
+        }catch (InputMismatchException e){
+            printer.printNLine("Książka nie została dodana, podałeś błędne dane.");
+        }catch (ArrayIndexOutOfBoundsException e){
+            printer.printNLine("Osiągnięto limit pojemności, nie można dodać kolejnej książki.");
+        }
     }
     private void addMagazine() {
-        Magazine magazine = dataReader.readAndCreateMagazine(); //Tworzenie obiektu magazine poprzez wywołanie metody
-        library.addMagazine(magazine);  //Stworzony powyżej obiekt magazine zostaje przeniesiony do library.java i zapisany w tablic
+        try {
+            Magazine magazine = dataReader.readAndCreateMagazine(); //Tworzenie obiektu magazine poprzez wywołanie metody
+            library.addMagazine(magazine);  //Stworzony powyżej obiekt magazine zostaje przeniesiony do library.java i zapisany w tablic
+        }catch (InputMismatchException e){
+            printer.printNLine("Magazyn nie została dodana, podałeś błędne dane.");
+        }catch (ArrayIndexOutOfBoundsException e){
+        printer.printNLine("Osiągnięto limit pojemności, nie można dodać kolejnego magazynu.");
+    }
     }
 
     private void printBooks() {
-        library.printBooks();
+        Publication[] publications = library.getPublications();
+        printer.printBooks(publications);
     }
     private void printMagazines() {
-        library.printMagazine();
+        Publication[] publications = library.getPublications();
+        printer.printMagazine(publications);
     }
 
     private void exit() {
-        System.out.println("Zamykanie systemu");
+        printer.printNLine("Zamykanie systemu...");
         dataReader.scClose();
     }
 }

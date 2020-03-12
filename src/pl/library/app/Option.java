@@ -6,6 +6,8 @@
 
 package pl.library.app;
 
+import pl.library.exception.NoSuchOptionException;
+
 public enum Option {
     EXIT(0, "wyjście"),
     ADD_BOOK(1, "dodaj książkę"),
@@ -35,7 +37,11 @@ public enum Option {
         return value + " - " + description;
     }
 
-    public static Option createFromInt(int choice){
-        return Option.values() [choice];
+    public static Option createFromInt(int choice) throws NoSuchOptionException {
+        try {
+            return Option.values() [choice];
+        }catch (ArrayIndexOutOfBoundsException e){
+            throw new NoSuchOptionException("Opcji " + choice + " nie istnieje, podaj ponownie:");
+        }
     }
 }

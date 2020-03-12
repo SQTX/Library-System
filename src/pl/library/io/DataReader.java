@@ -13,19 +13,25 @@ import pl.library.model.Magazine;
 public class DataReader {
     private Scanner sc = new Scanner(System.in);
 
-//    Tworzenie książki
+    //    Alternatywa dla tworzenia nowego obiektu DataReader
+    private ConsolePrinter printer;
+    public DataReader(ConsolePrinter printer) {
+        this.printer = printer;
+    }
+
+    //    Tworzenie książki
     public Book readAndCreateBook(){
-        System.out.print("Tytuł: ");
+        printer.printLine("Tytuł: ");
         String title = sc.nextLine();
-        System.out.print("Autor: ");
+        printer.printLine("Autor: ");
         String author = sc.nextLine();
-        System.out.print("Wydawnictwo: ");
+        printer.printLine("Wydawnictwo: ");
         String publisher = sc.nextLine();
-        System.out.print("Rok wydania : ");
+        printer.printLine("Rok wydania : ");
         int releaseDate = getInt();
-        System.out.print("Liczba stron: ");
+        printer.printLine("Liczba stron: ");
         int pages = getInt();
-        System.out.print("ISBN: ");
+        printer.printLine("ISBN: ");
         String isbn = sc.nextLine();
 
         return new Book(title,author,releaseDate,pages,publisher,isbn);
@@ -33,17 +39,17 @@ public class DataReader {
 
 //    Tworzenie magazynu
     public Magazine readAndCreateMagazine(){
-        System.out.print("Tytuł: ");
+        printer.printLine("Tytuł: ");
         String title = sc.nextLine();
-        System.out.print("Wydawnictwo: ");
+        printer.printLine("Wydawnictwo: ");
         String publisher = sc.nextLine();
-        System.out.print("Język: ");
+        printer.printLine("Język: ");
         String language = sc.nextLine();
-        System.out.print("Rok wydania : ");
+        printer.printLine("Rok wydania : ");
         int year = getInt();
-        System.out.print("Miesiąc: ");
+        printer.printLine("Miesiąc: ");
         int month = getInt();
-        System.out.print("Dzień: ");
+        printer.printLine("Dzień: ");
         int day = getInt();
 
         return new Magazine(title, publisher, language, year, month, day);
@@ -51,13 +57,16 @@ public class DataReader {
 
 //    Pobieranie wybraniej opcji
     public int getInt(){
-        int number = sc.nextInt();
-        sc.nextLine();
-        return number;
+        try {
+            return sc.nextInt();
+        } finally {
+            sc.nextLine();
+        }
     }
 
 //    Zamykanie systemu pobierania danych
     public void scClose(){
         sc.close();
     }
+
 }

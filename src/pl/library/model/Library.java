@@ -12,50 +12,30 @@ public class Library{
     private Publication[] publications = new Publication[MAX_PUBLICATIONS];
     private int publicationsNumber = 0;
 
-//    Metoda odpowiedzialna za sprawdzenie czy limit książek nie został przekroczony oraz dodanie nowej książki
+    public Publication[] getPublications() {
+        Publication[] result = new Publication[publicationsNumber];
+        for (int i =0; i < result.length; i++){
+            result[i] = publications[i];
+        }
+        return result;
+    }
+
+//    Metoda odpowiedzialna za dodanie nowej książki
     public void addBook(Book book){
-        if(publicationsNumber< MAX_PUBLICATIONS){
-            publications[publicationsNumber] = book;
-            publicationsNumber++;
-        }else{
-            System.out.println("Biblioteka jest przepełniona.");
-        }
+        addPublication(book);
     }
 
-    //    Metoda odpowiedzialna za sprawdzenie czy limit magazynów nie został przekroczony oraz dodanie nowego magazynu
+//    Metoda odpowiedzialna za dodanie nowego magazynu
     public void addMagazine(Magazine magazine){
-        if(publicationsNumber< MAX_PUBLICATIONS){
-            publications[publicationsNumber] = magazine;
-            publicationsNumber++;
-        }else{
-            System.out.println("Biblioteka jest przepełniona.");
-        }
+        addPublication(magazine);
     }
 
-//    Metoda odpowiedzialna za rozpoznanie czy są jakies książki i wyświetlenie ich wszystkich w zwartej liście
-    public void printBooks() {
-        int countBooks = 0;
-        for (int i=0;i<publicationsNumber;i++){
-            if(publications[i] instanceof Book)
-                System.out.println("Książka nr. "+(++countBooks));
-                System.out.println(((Book)publications[i]).toString());
+//    Metoda odpowiedzialna za sprawdzenie czy limit magazynów nie został przekroczony oraz dodanie nowej publikacji
+    private void addPublication(Publication publication){
+        if (publicationsNumber >= MAX_PUBLICATIONS){
+            throw new ArrayIndexOutOfBoundsException("Max publications exceeded" + MAX_PUBLICATIONS);
         }
-        if(countBooks==0){
-            System.out.println("Brak książek w bibliotece.");
-        }
-    }
-
-    //    Metoda odpowiedzialna za rozpoznanie czy są jakies magazynów i wyświetlenie ich wszystkich w zwartej liście
-    public void printMagazine() {
-        int countMagazine = 0;
-        for (int i=0;i<publicationsNumber;i++){
-            if(publications[i] instanceof Magazine){
-                System.out.println("Magazyn nr. "+(++countMagazine));
-                System.out.println(((Magazine)publications[i]).toString());
-        }
-        }
-        if (countMagazine == 0) {
-            System.out.println("Brak magazynów w bibliotece.");
-        }
+        publications[publicationsNumber] = publication;
+        publicationsNumber++;
     }
 }

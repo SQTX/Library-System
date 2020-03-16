@@ -22,29 +22,34 @@ public class LibraryControl {
     private DataReader dataReader = new DataReader(printer);
     private Library library = new Library();
 
-//    Metoda odpowiedzialna za wybór działania
+    //    Metoda odpowiedzialna za wybór działania
     public void controlLoop() {
         Option choice;
-        do{
+        do {
             printOptions();
             choice = getChoice();
             printer.printNLine("");   //Enter po wybraniu, odstęp dla czytelnoścki kolejnych działań
 
-            switch(choice){
-                case EXIT: exit();
-                break;
-                case ADD_BOOK: addBook();
-                break;
-                case ADD_MAGAZINE: addMagazine();
-                break;
-                case PRINT_BOOKS: printBooks();
-                break;
-                case PRINT_MAGAZINES: printMagazines();
-                break;
+            switch (choice) {
+                case EXIT:
+                    exit();
+                    break;
+                case ADD_BOOK:
+                    addBook();
+                    break;
+                case ADD_MAGAZINE:
+                    addMagazine();
+                    break;
+                case PRINT_BOOKS:
+                    printBooks();
+                    break;
+                case PRINT_MAGAZINES:
+                    printMagazines();
+                    break;
                 default:
                     printer.printLine("Nie ma takiej opcji, wprowadź ponownie: "); //w razie W
             }
-        }while(choice!= Option.EXIT);
+        } while (choice != Option.EXIT);
     }
 
     private Option getChoice() {
@@ -59,7 +64,7 @@ public class LibraryControl {
             } catch (InputMismatchException e) {
                 printer.printLine("Wprowadzona wartość nie jest liczbą, podaj ponownie: ");
             }
-        }while (optionOk);
+        } while (optionOk);
         return choice;
     }
 
@@ -75,27 +80,29 @@ public class LibraryControl {
         try {
             Book book = dataReader.readAndCreateBook(); //Tworzenie obiektu book poprzez wywołanie metody
             library.addBook(book);  //Stworzony powyżej obiekt book zostaje przeniesiony do library.java i zapisany w tablic
-        }catch (InputMismatchException e){
+        } catch (InputMismatchException e) {
             printer.printNLine("Książka nie została dodana, podałeś błędne dane.");
-        }catch (ArrayIndexOutOfBoundsException e){
+        } catch (ArrayIndexOutOfBoundsException e) {
             printer.printNLine("Osiągnięto limit pojemności, nie można dodać kolejnej książki.");
         }
     }
+
     private void addMagazine() {
         try {
             Magazine magazine = dataReader.readAndCreateMagazine(); //Tworzenie obiektu magazine poprzez wywołanie metody
             library.addMagazine(magazine);  //Stworzony powyżej obiekt magazine zostaje przeniesiony do library.java i zapisany w tablic
-        }catch (InputMismatchException e){
+        } catch (InputMismatchException e) {
             printer.printNLine("Magazyn nie została dodana, podałeś błędne dane.");
-        }catch (ArrayIndexOutOfBoundsException e){
-        printer.printNLine("Osiągnięto limit pojemności, nie można dodać kolejnego magazynu.");
-    }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            printer.printNLine("Osiągnięto limit pojemności, nie można dodać kolejnego magazynu.");
+        }
     }
 
     private void printBooks() {
         Publication[] publications = library.getPublications();
         printer.printBooks(publications);
     }
+
     private void printMagazines() {
         Publication[] publications = library.getPublications();
         printer.printMagazine(publications);
@@ -104,5 +111,44 @@ public class LibraryControl {
     private void exit() {
         printer.printNLine("Zamykanie systemu...");
         dataReader.scClose();
+    }
+
+//    Klasa wewnętrzna
+    enum Option {
+        EXIT(0, "wyjście"),
+        ADD_BOOK(1, "dodaj książkę"),
+        ADD_MAGAZINE(2, "dodaj magazyn"),
+        PRINT_BOOKS(3, "wyświetl dostępne książki"),
+        PRINT_MAGAZINES(4, "wyświetl dostępne magazyny");
+
+        private final int value;
+        private final String description;
+
+        Option(int value, String description) {
+            this.value = value;
+            this.description = description;
+        }
+
+        //    gettery
+        public int getValue() {
+            return value;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        @Override
+        public String toString() {
+            return value + " - " + description;
+        }
+
+        public static Option createFromInt(int choice) throws NoSuchOptionException {
+            try {
+                return Option.values()[choice];
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new NoSuchOptionException("Opcji " + choice + " nie istnieje, podaj ponownie:");
+            }
+        }
     }
 }

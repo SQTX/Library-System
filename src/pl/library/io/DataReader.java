@@ -64,6 +64,11 @@ public class DataReader {
         }
     }
 
+//    Pobieranie Stringa
+    public String getString(){
+        return sc.nextLine();
+    }
+
 //    Zamykanie systemu pobierania danych
     public void scClose(){
         sc.close();

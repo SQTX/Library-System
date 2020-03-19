@@ -6,9 +6,13 @@
 
 package pl.library.app;
 
+import pl.library.exception.DataExportException;
+import pl.library.exception.DataImportException;
 import pl.library.exception.NoSuchOptionException;
 import pl.library.io.ConsolePrinter;
 import pl.library.io.DataReader;
+import pl.library.io.file.FileManager;
+import pl.library.io.file.FileManagerBuilder;
 import pl.library.model.Book;
 import pl.library.model.Library;
 import pl.library.model.Magazine;
@@ -20,10 +24,23 @@ public class LibraryControl {
 
     private ConsolePrinter printer = new ConsolePrinter();
     private DataReader dataReader = new DataReader(printer);
-    private Library library = new Library();
+    private Library library;
+    private FileManager fileManager;
+
+    public LibraryControl(){
+        fileManager = new FileManagerBuilder(printer, dataReader).build();
+        try {
+            library = fileManager.importData();
+            printer.printNLine("Zaimportowano dane z pliku.");
+        }catch (DataImportException e){
+            printer.printNLine(e.getMessage());
+            printer.printNLine("Zainicjowano nową bazę.");
+            library = new Library();
+        }
+    }
 
     //    Metoda odpowiedzialna za wybór działania
-    public void controlLoop() {
+    public void controlLoop() throws InterruptedException {
         Option choice;
         do {
             printOptions();
@@ -108,8 +125,18 @@ public class LibraryControl {
         printer.printMagazine(publications);
     }
 
-    private void exit() {
-        printer.printNLine("Zamykanie systemu...");
+    private void exit() throws InterruptedException {
+        try{
+            fileManager.exportData(library);
+            printer.printNLine("Dane zostały zapisane");
+        }catch (DataExportException e){
+            printer.printNLine(e.getMessage());
+        }
+        printer.printLine("Zamykanie systemu");
+        for (int i = 0; i<3; i++){  //Efekt 3 kropek po zamknięciu
+            Thread.sleep(600);
+            printer.printLine(".");
+        }
         dataReader.scClose();
     }
 

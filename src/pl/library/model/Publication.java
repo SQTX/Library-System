@@ -6,10 +6,11 @@
 
 package pl.library.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 //Cechy które będą dziedziczone przez wszystkie publikacje w bibliotece
-public abstract class Publication {
+public abstract class Publication implements Serializable {
     private String title;
     private String publisher;
     private int year;

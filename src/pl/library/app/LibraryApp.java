@@ -9,7 +9,7 @@ package pl.library.app;
 import pl.library.io.ConsolePrinter;
 
 public class LibraryApp {
-    final static String APP_NAME = "Biblioteka v1.9";
+    final static String APP_NAME = "Biblioteka v1.9.2";
     public static void main(String[] args) throws InterruptedException {
         System.out.println(APP_NAME);
         LibraryControl libraryControl = new LibraryControl();

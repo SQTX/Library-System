@@ -43,6 +43,8 @@ public abstract class Publication implements Serializable {
         this.year = releaseDate;
     }
 
+    public abstract String toCsv();
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -10,6 +10,7 @@ import java.util.Objects;
 
 //cechy obiektu Książka
 public class Book extends Publication{
+    public static  final String TYPE = "Ksiiążka";
     private String author;
     private int pages;
     private String isbn;
@@ -64,7 +65,18 @@ public class Book extends Publication{
         }
     }
 
-//    equals
+    @Override
+    public String toCsv() {
+        return TYPE + ";" +
+                getTitle() + ";" +
+                getAuthor() + ";" +
+                getYear() + ";" +
+                getPages() + ";" +
+                getPublisher() + ";" +
+                getIsbn();
+    }
+
+    //    equals
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

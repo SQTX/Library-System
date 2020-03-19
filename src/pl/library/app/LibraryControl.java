@@ -8,6 +8,7 @@ package pl.library.app;
 
 import pl.library.exception.DataExportException;
 import pl.library.exception.DataImportException;
+import pl.library.exception.InvalidDataException;
 import pl.library.exception.NoSuchOptionException;
 import pl.library.io.ConsolePrinter;
 import pl.library.io.DataReader;
@@ -32,7 +33,7 @@ public class LibraryControl {
         try {
             library = fileManager.importData();
             printer.printNLine("Zaimportowano dane z pliku.");
-        }catch (DataImportException e){
+        }catch (DataImportException | InvalidDataException e){
             printer.printNLine(e.getMessage());
             printer.printNLine("Zainicjowano nową bazę.");
             library = new Library();
@@ -96,7 +97,7 @@ public class LibraryControl {
     private void addBook() {
         try {
             Book book = dataReader.readAndCreateBook(); //Tworzenie obiektu book poprzez wywołanie metody
-            library.addBook(book);  //Stworzony powyżej obiekt book zostaje przeniesiony do library.java i zapisany w tablic
+            library.addPublication(book);  //Stworzony powyżej obiekt book zostaje przeniesiony do library.java i zapisany w tablic
         } catch (InputMismatchException e) {
             printer.printNLine("Książka nie została dodana, podałeś błędne dane.");
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -107,7 +108,7 @@ public class LibraryControl {
     private void addMagazine() {
         try {
             Magazine magazine = dataReader.readAndCreateMagazine(); //Tworzenie obiektu magazine poprzez wywołanie metody
-            library.addMagazine(magazine);  //Stworzony powyżej obiekt magazine zostaje przeniesiony do library.java i zapisany w tablic
+            library.addPublication(magazine);  //Stworzony powyżej obiekt magazine zostaje przeniesiony do library.java i zapisany w tablic
         } catch (InputMismatchException e) {
             printer.printNLine("Magazyn nie została dodana, podałeś błędne dane.");
         } catch (ArrayIndexOutOfBoundsException e) {

@@ -9,6 +9,7 @@ package pl.library.model;
 import java.util.Objects;
 
 public class Magazine extends Publication {
+    public static final String TYPE = "Magazyn";
     private int month;
     private int day;
     private String language;
@@ -50,6 +51,18 @@ public class Magazine extends Publication {
         return info;
     }
 //    equals
+
+    @Override
+    public String toCsv() {
+        return TYPE + ";" +
+                getTitle() + ";" +
+                getPublisher() + ";" +
+                getLanguage() + ";" +
+                getYear() + ";" +
+                getMonth() + ";" +
+                getDay();
+
+    }
 
     @Override
     public boolean equals(Object o) {

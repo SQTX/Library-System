@@ -55,7 +55,7 @@ public class Book extends Publication{
 //    toString przesyła dane w postaci wiadomości do wyświetlenia
     @Override
     public String toString() {
-        String info ="\""+getTitle()+"\""+"\n"+author+"\n"+ getYear()+"\n"+getPublisher();
+        String info ="\""+getTitle()+"\""+"\n"+author +"\n"+ getPages() +"\n"+ getPublisher()+"\n"+ getYear();
 
 //        Warunek sprawdzający czy podano jakiś numer isbn czy nie, jeżeli tak to jest wyświetlony
         if (isbn != null){

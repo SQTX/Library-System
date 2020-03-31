@@ -18,7 +18,9 @@ import pl.library.model.Book;
 import pl.library.model.Library;
 import pl.library.model.Magazine;
 import pl.library.model.Publication;
+import pl.library.model.comparators.AlphabeticalComparator;
 
+import java.util.Arrays;
 import java.util.InputMismatchException;
 
 public class LibraryControl {
@@ -149,13 +151,22 @@ public class LibraryControl {
     }
 
     private void printBooks() {
-        Publication[] publications = library.getPublications();
+        Publication[] publications = getSortedPublications();
         printer.printBooks(publications);
     }
 
     private void printMagazines() {
-        Publication[] publications = library.getPublications();
+        Publication[] publications = getSortedPublications();
         printer.printMagazine(publications);
+    }
+
+//    Sortowanie zasobów biblioteki
+    private Publication[] getSortedPublications() {
+        Publication[] publications = library.getPublications();
+        Arrays.sort(publications, new AlphabeticalComparator());
+//        Sortowanie według daty - off
+//        Arrays.sort(publications, new DateComparator());
+        return publications;
     }
 
     private void exit() throws InterruptedException {

@@ -8,6 +8,7 @@ package pl.library.io;
 
 import java.util.Scanner;
 import pl.library.model.Book;
+import pl.library.model.LibraryUser;
 import pl.library.model.Magazine;
 
 public class DataReader {
@@ -53,6 +54,17 @@ public class DataReader {
         int day = getInt();
 
         return new Magazine(title, publisher, language, year, month, day);
+    }
+
+//    Dodawanie użytkownika
+    public LibraryUser createLibraryUser(){
+           printer.printLine("Imię: ");
+           String firstName = sc.nextLine();
+           printer.printLine("Nzwisko: ");
+           String lastName = sc.nextLine();
+           printer.printLine("Pesel: ");
+           String pesel = sc.nextLine();
+           return new LibraryUser(firstName, lastName, pesel);
     }
 
 //    Pobieranie wybraniej opcji

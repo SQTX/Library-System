@@ -6,14 +6,13 @@
 
 package pl.library.io;
 
-import pl.library.model.Book;
-import pl.library.model.Magazine;
-import pl.library.model.Publication;
+import pl.library.model.*;
+import java.util.Collection;
 
 public class ConsolePrinter {
 
     //    Metoda odpowiedzialna za rozpoznanie czy są jakies książki i wyświetlenie ich wszystkich w zwartej liście
-    public void printBooks(Publication[] publications) {
+    public void printBooks(Collection<Publication> publications) {
         int countBooks = 0;
         for (Publication publication: publications){
             if(publication instanceof Book) {
@@ -27,7 +26,7 @@ public class ConsolePrinter {
     }
 
 //    Metoda odpowiedzialna za rozpoznanie czy są jakies magazynów i wyświetlenie ich wszystkich w zwartej liście
-    public void printMagazine(Publication[] publications) {
+    public void printMagazine(Collection<Publication> publications) {
         int countMagazine = 0;
         for (Publication publication: publications){
             if(publication instanceof Magazine){
@@ -37,6 +36,12 @@ public class ConsolePrinter {
         }
         if (countMagazine == 0) {
             printNLine("Brak magazynów w bibliotece.");
+        }
+    }
+
+    public void printUsers(Collection<LibraryUser> users){
+        for(LibraryUser user: users){
+            printNLine(user.toString());
         }
     }
 

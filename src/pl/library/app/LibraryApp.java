@@ -7,7 +7,7 @@
 package pl.library.app;
 
 public class LibraryApp {
-    final static String APP_NAME = "Biblioteka v2.1.7";
+    final static String APP_NAME = "Biblioteka v2.2";
     public static void main(String[] args) throws InterruptedException {
         System.out.println(APP_NAME);
         LibraryControl libraryControl = new LibraryControl();

@@ -11,10 +11,11 @@ import pl.library.exception.DataImportException;
 import pl.library.exception.InvalidDataException;
 import pl.library.model.*;
 import java.io.*;
+import java.text.CollationElementIterator;
 import java.util.Collection;
 import java.util.Scanner;
 
-public class CsvFileManager implements FileManager{
+public class CsvFileManager implements FileManager {
     private static final String FILE_NAME = "Library.csv";
     private static final String USERS_FILE_NAME = "Library_users.csv";
 
@@ -28,10 +29,10 @@ public class CsvFileManager implements FileManager{
     }
 
     private void importUsers(Library library) {
-        try(
+        try (
                 Scanner fileReader = new Scanner(new File(USERS_FILE_NAME));
         ) {
-            while (fileReader.hasNextLine()){
+            while (fileReader.hasNextLine()) {
                 String line = fileReader.nextLine();
                 LibraryUser libUser = createUserFromString(line);
                 library.addUser(libUser);
@@ -50,10 +51,10 @@ public class CsvFileManager implements FileManager{
     }
 
     private void importPublications(Library library) {
-        try(
+        try (
                 Scanner fileReader = new Scanner(new File(FILE_NAME));  //W skanerze tworzymy obiekt File a nie samo file
         ) {
-            while (fileReader.hasNextLine()){
+            while (fileReader.hasNextLine()) {
                 String line = fileReader.nextLine();
                 Publication publication = createObjectFromString(line);
                 library.addPublication(publication);
@@ -67,12 +68,12 @@ public class CsvFileManager implements FileManager{
     private Publication createObjectFromString(String line) {
         String[] split = line.split(";");
         String type = split[0];
-        if(Book.TYPE.equals(type)){
+        if (Book.TYPE.equals(type)) {
             return createBook(split);
-        }else if(Magazine.TYPE.equals(type)){
+        } else if (Magazine.TYPE.equals(type)) {
             return createMagazine(split);
         }
-        throw new InvalidDataException("Nieznany typ publikacji "+ type);
+        throw new InvalidDataException("Nieznany typ publikacji " + type);
     }
 
     private Publication createBook(String[] split) {
@@ -103,33 +104,29 @@ public class CsvFileManager implements FileManager{
     }
 
     private void exportUsers(Library library) {
-        Collection<LibraryUser> users = library.getUsers().values();
-        try(
-                var fileWriter = new FileWriter(USERS_FILE_NAME);
+        Collection<LibraryUser> users = library.getUsers().values(); //Mapa została zamieniona na interface nadrzędny'
+        // Collection, a dokładnie value, alby móc po nim iterować (po mapie jest to niemożliwe)
+        exportToCsv(users, USERS_FILE_NAME);
+    }
+
+    private void exportPublications(Library library) {
+        Collection<Publication> publications = library.getPublications().values();
+        exportToCsv(publications, FILE_NAME);
+    }
+
+    private <T extends CsvConvertible> void exportToCsv(Collection<T> collection, String fileName) {
+//        objekt nie określony T jest rozszerzony o interface CsvConvertible
+
+        try (
+                var fileWriter = new FileWriter(fileName);
                 var bufferedWriter = new BufferedWriter(fileWriter);
-        ){
-            for (LibraryUser libUser : users){
-                bufferedWriter.write(libUser.toCsv()); //Przekształcenie danych na format CSV
+        ) {
+            for (T element : collection) { //iterowanie
+                bufferedWriter.write(element.toCsv()); //Przekształcenie danych na format CSV
                 bufferedWriter.newLine();
             }
         } catch (IOException e) {
             throw new DataExportException("Błąd zapisu pliku" + USERS_FILE_NAME);
-        }
-    }
-
-    private void exportPublications(Library library) {
-        Collection<Publication> publications = library.getPublications().values();  //Mapa została zamieniona na
-        // interface nadrzędny Collection, a dokładnie value, alby móc po nim iterować (po mapie jest to niemożliwe)
-        try(
-                var fileWriter = new FileWriter(FILE_NAME);
-                var bufferedWriter = new BufferedWriter(fileWriter);
-        ){
-            for (Publication publication : publications){   //iterowanie
-                bufferedWriter.write(publication.toCsv()); //Przekształcenie danych na format CSV
-                bufferedWriter.newLine();
-            }
-        } catch (IOException e) {
-            throw new DataExportException("Błąd zapisu pliku" + FILE_NAME);
         }
     }
 }

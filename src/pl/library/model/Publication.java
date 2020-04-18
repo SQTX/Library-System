@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 //Cechy które będą dziedziczone przez wszystkie publikacje w bibliotece
-public abstract class Publication implements Serializable, Comparable<Publication> {
+public abstract class Publication implements Serializable, Comparable<Publication>, CsvConvertible {
     private String title;
     private String publisher;
     private int year;
@@ -42,8 +42,6 @@ public abstract class Publication implements Serializable, Comparable<Publicatio
         this.publisher = publisher;
         this.year = releaseDate;
     }
-
-    public abstract String toCsv();
 
     @Override
     public boolean equals(Object o) {

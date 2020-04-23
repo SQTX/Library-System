@@ -12,6 +12,9 @@ import pl.library.io.DataReader;
 import pl.library.io.file.FileManager;
 import pl.library.io.file.FileManagerBuilder;
 import pl.library.model.*;
+import pl.library.model.comparators.AlphabeticalTitleComparator;
+
+import java.util.Comparator;
 import java.util.InputMismatchException;
 
 public class LibraryControl {
@@ -76,7 +79,12 @@ public class LibraryControl {
     }
 
     private void printUsers() {
-        printer.printUsers(library.getUsers().values());
+        printer.printUsers(library.getSortedUsers(new Comparator<LibraryUser>() {
+            @Override
+            public int compare(LibraryUser p1, LibraryUser p2) {
+                return p1.getLastName().compareToIgnoreCase(p2.getLastName());
+            }
+        }));
     }
 
     private void addUser() {
@@ -161,11 +169,11 @@ public class LibraryControl {
     }
 
     private void printBooks() {
-        printer.printBooks(library.getPublications().values());
+        printer.printBooks(library.getSortedPublications(new AlphabeticalTitleComparator()));
     }
 
     private void printMagazines() {
-        printer.printMagazine(library.getPublications().values());
+        printer.printMagazine(library.getSortedPublications(new AlphabeticalTitleComparator()));
     }
 
 ////    Sortowanie zasobów biblioteki

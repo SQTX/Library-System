@@ -7,7 +7,6 @@
 package pl.library.model.comparators;
 
 import pl.library.model.Publication;
-
 import java.util.Comparator;
 
 public class AlphabeticalTitleComparator implements Comparator<Publication> {
@@ -23,3 +22,4 @@ public class AlphabeticalTitleComparator implements Comparator<Publication> {
         return (p1.getTitle().compareTo(p2.getTitle()));
     }
 }
+//Klasa ta jest do usunięcia, zostąpiona przez lambde

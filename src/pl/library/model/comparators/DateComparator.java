@@ -25,3 +25,4 @@ public class DateComparator implements Comparator<Publication> {
         return -(i1.compareTo(i2)); //Daty malejąco
     }
 }
+//Klasa ta jest do usunięcia, zostąpiona przez lambde

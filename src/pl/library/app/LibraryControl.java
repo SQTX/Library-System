@@ -12,6 +12,8 @@ import pl.library.io.DataReader;
 import pl.library.io.file.FileManager;
 import pl.library.io.file.FileManagerBuilder;
 import pl.library.model.*;
+
+import java.util.Comparator;
 import java.util.InputMismatchException;
 
 public class LibraryControl {
@@ -77,7 +79,8 @@ public class LibraryControl {
 
     private void printUsers() {
         printer.printUsers(library.getSortedUsers(
-                (p1, p2) -> p1.getLastName().compareToIgnoreCase(p2.getLastName())
+//                Sortowanie alfabetyczne za pomocą referencji do metody
+                Comparator.comparing(User::getLastName, String.CASE_INSENSITIVE_ORDER)
         ));
     }
 
@@ -164,13 +167,15 @@ public class LibraryControl {
 
     private void printBooks() {
         printer.printBooks(library.getSortedPublications(
-                (p1, p2) -> p1.getTitle().compareToIgnoreCase(p2.getTitle())
+//                Sortowanie alfabetyczne za pomocą referencji do metody
+                Comparator.comparing(Publication::getTitle, String.CASE_INSENSITIVE_ORDER)
         ));
     }
 
     private void printMagazines() {
         printer.printMagazine(library.getSortedPublications(
-                (p1, p2) -> p1.getTitle().compareToIgnoreCase(p2.getTitle())    //Kod się dubluje, do weentualnej naprawy
+//                Sortowanie alfabetyczne za pomocą referencji do metody
+                Comparator.comparing(Publication::getTitle, String.CASE_INSENSITIVE_ORDER)
         ));
     }
 

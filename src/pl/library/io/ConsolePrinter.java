@@ -13,28 +13,27 @@ public class ConsolePrinter {
 
     //    Metoda odpowiedzialna za rozpoznanie czy są jakies książki i wyświetlenie ich wszystkich w zwartej liście
     public void printBooks(Collection<Publication> publications) {
-        int countBooks = 0;
-        for (Publication publication: publications){
-            if(publication instanceof Book) {
-                printNLine("Książka nr. " + (++countBooks));
-                printNLine(((Book) publication).toString());
-            }
-        }
-        if(countBooks==0){
+        long count = publications.stream()  //Tworzymy strumień
+                .filter(p -> p instanceof Book) //Sprawdzamy czy to książki
+                .map(Object::toString)  //Zamieniamy publikacje na Stringi
+                .peek(this::printNLine) //Wyświetlamy daną publikację
+                .count();   //Zlaiczamy liczbę publikacji
+
+        if(count==0){
             printNLine("Brak książek w bibliotece.");
         }
+
+
     }
 
 //    Metoda odpowiedzialna za rozpoznanie czy są jakies magazynów i wyświetlenie ich wszystkich w zwartej liście
     public void printMagazine(Collection<Publication> publications) {
-        int countMagazine = 0;
-        for (Publication publication: publications){
-            if(publication instanceof Magazine){
-                printNLine("Magazyn nr. "+(++countMagazine));
-                printNLine(((Magazine)publication).toString());
-            }
-        }
-        if (countMagazine == 0) {
+        long count = publications.stream()
+                .filter(p -> p instanceof Magazine)
+                .map(Object::toString)
+                .peek(this::printNLine)
+                .count();
+        if (count == 0) {
             printNLine("Brak magazynów w bibliotece.");
         }
     }

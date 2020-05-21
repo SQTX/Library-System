@@ -6,6 +6,7 @@
 
 package pl.library.app;
 
+import org.w3c.dom.ls.LSOutput;
 import pl.library.exception.*;
 import pl.library.io.ConsolePrinter;
 import pl.library.io.DataReader;
@@ -59,6 +60,9 @@ public class LibraryControl {
                 case PRINT_MAGAZINES:
                     printMagazines();
                     break;
+                case FIND_PUBLICATION:
+                    findBook();
+                    break;
                 case DELETE_BOOK:
                     deleteBook();
                     break;
@@ -75,6 +79,18 @@ public class LibraryControl {
                     printer.printLine("Nie ma takiej opcji, wprowadź ponownie: "); //w razie W
             }
         } while (choice != Option.EXIT);
+    }
+
+    private void findBook() {
+        printer.printLine("Podaj tytuł: ");
+        String title = dataReader.getString();
+        String notFoundMessage = "Brak publikacji o takim tytule.";
+        library.findPublicationByTitle(title)
+                .map(Publication::toString)
+                .ifPresentOrElse(
+                        System.out::println,
+                        ()-> System.out.println(notFoundMessage)
+                );
     }
 
     private void printUsers() {
@@ -201,10 +217,11 @@ public class LibraryControl {
         ADD_MAGAZINE(2, "dodaj magazyn"),
         PRINT_BOOKS(3, "wyświetl dostępne książki"),
         PRINT_MAGAZINES(4, "wyświetl dostępne magazyny"),
-        DELETE_BOOK(5, "usuń książkę"),
-        DELETE_MAGAZINE(6, "usuń magazyn"),
-        ADD_USER(7, "dodaj czytelnika"),
-        PRINT_USER(8, "wyświetl czytelników");
+        FIND_PUBLICATION(5, "Wyszukaj publikację"),
+        DELETE_BOOK(6, "usuń książkę"),
+        DELETE_MAGAZINE(7, "usuń magazyn"),
+        ADD_USER(8, "dodaj czytelnika"),
+        PRINT_USER(9, "wyświetl czytelników");
 
 
         private final int value;
